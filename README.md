@@ -11,6 +11,15 @@ Event log, MP-Declare formalizations, and analysis code for the paper *Assessing
 - `compliance_checking.ipynb`: checks the constraints of each version against the projects it governs and reports compliance rates overall and per version.
 - `policy_change_assessment.ipynb`: checks the projects governed by the old version against both the old and the new constraint of three policy changes.
 
+## Event log
+
+`boston_permitting.xes` contains 942 projects (traces) and 15,067 events from 1988 to 2026, with one trace per project and one event per entry in the project's review timeline, such as a filing, a comment period, a public meeting, or a Board decision.
+
+- Project attributes: `project_id`, `name`, `address`, `neighborhood`, `project_type` (Large or Small Project), `gross_floor_area_sqft`, `land_sqft`, `phase`, `in_article_80`, `description`, and `url` of the project page.
+- Event attributes: `concept:name` (the label as published), `time:timestamp`, `text`, and `url` of the linked document.
+
+Some projects lack a project type or a gross floor area; `1_infer_project_type.py` infers them where possible, and `2_clean_event_log.py` merges label variants into the event types used in the MP-Declare models.
+
 ## Usage
 
 Requires `pm4py`, `declare4py`, and `pandas`.
