@@ -1,0 +1,69 @@
+activity Letter of Intent LOI
+activity Project Notification Form PNF
+bind Project Notification Form PNF: review_type, gfa
+activity PNF Comment Period Open
+activity PNF Comment Period End
+activity Scoping Determination
+activity Scoping Determination Waiving Further Review
+activity Draft Project Impact Report DPIR
+activity Preliminary Adequacy Determination PAD
+activity BPDA Board Approval
+bind BPDA Board Approval: review_type, gfa
+activity Certification of Compliance
+bind Certification of Compliance: review_type
+activity Cooperation Agreement
+activity Development Impact Project DIP Agreement
+bind Development Impact Project DIP Agreement: gfa
+activity Building Permit Granted
+bind Building Permit Granted: review_type
+activity Notice of Project Change NPC
+activity NPC Comment Period Open
+activity NPC Comment Period End
+activity Small Project Review Application SPRA
+bind Small Project Review Application SPRA: review_type, gfa
+activity SPRA Comment Period Open
+activity SPRA Comment Period End
+activity Certification of Approval
+activity Boston Civic Design Commission
+activity Draft Planned Development Area PDA Development Plan
+activity PDA Comment Period Open
+activity PDA Comment Period End
+activity Boston Zoning Commission BZC Approved
+activity IMPNF Comment Period Open
+activity IMPNF Comment Period End
+activity IMP Comment Period Open
+activity IMP Comment Period End
+review_type: Large, Small, Unknown
+gfa: integer between 0 and 4000000
+# --- review-type selection (80B-2, 80E-2)
+Not Responded Existence[Project Notification Form PNF, Small Project Review Application SPRA] | | |
+Absence1[Small Project Review Application SPRA] |A.gfa >= 50000 |
+Absence1[Project Notification Form PNF] |A.gfa < 10000 |
+# --- Large Project Review (80B-5)
+Precedence[Letter of Intent LOI, Project Notification Form PNF] | | |
+Response[PNF Comment Period Open, PNF Comment Period End] | | |30,36500,d
+Precedence[Project Notification Form PNF, BPDA Board Approval] |A.review_type is Large | |
+Precedence[BPDA Board Approval, Scoping Determination Waiving Further Review] | | |
+Absence1[Draft Project Impact Report DPIR] | |
+Absence1[Preliminary Adequacy Determination PAD] | |
+Responded Existence[Project Notification Form PNF, Boston Civic Design Commission] |A.gfa > 200000 | |
+# --- agreements, certification, changes (80A-5, 80A-6, 80B-6, 80B-7)
+Precedence[BPDA Board Approval, Certification of Compliance] |A.review_type is Large | |
+Precedence[BPDA Board Approval, Cooperation Agreement] | | |
+Precedence[BPDA Board Approval, Development Impact Project DIP Agreement] | | |
+Absence1[Development Impact Project DIP Agreement] |A.gfa <= 100000 |
+Precedence[Certification of Compliance, Building Permit Granted] |A.review_type is Large | |
+Response[BPDA Board Approval, Building Permit Granted] |A.review_type is Large | |0,1095,d
+Precedence[BPDA Board Approval, Notice of Project Change NPC] | | |
+Response[NPC Comment Period Open, NPC Comment Period End] | | |30,36500,d
+# --- Small Project Review (80E-5, 80E-6)
+Precedence[Small Project Review Application SPRA, BPDA Board Approval] |A.review_type is Small | |
+Response[SPRA Comment Period Open, SPRA Comment Period End] | | |30,36500,d
+Precedence[Small Project Review Application SPRA, Certification of Approval] | | |
+Precedence[Certification of Approval, Building Permit Granted] |A.review_type is Small | |
+# --- PDA and IMP review (80C-5, 80C-6, 80D-5)
+Response[PDA Comment Period Open, PDA Comment Period End] | | |45,36500,d
+Response[Draft Planned Development Area PDA Development Plan, BPDA Board Approval] | | |60,90,d
+Precedence[BPDA Board Approval, Boston Zoning Commission BZC Approved] | | |
+Response[IMPNF Comment Period Open, IMPNF Comment Period End] | | |30,36500,d
+Response[IMP Comment Period Open, IMP Comment Period End] | | |60,36500,d
