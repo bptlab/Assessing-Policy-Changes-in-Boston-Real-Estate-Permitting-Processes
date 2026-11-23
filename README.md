@@ -11,6 +11,11 @@ Event log, MP-Declare formalizations, and analysis code for the paper *Assessing
 - `compliance_checking.ipynb`: checks the constraints of each version against the projects it governs and reports compliance rates overall and per version.
 - `policy_change_assessment.ipynb`: checks the projects governed by the old version against both the old and the new constraint of three policy changes.
 
+## Sources
+
+- Article 80 and all other articles of the Boston Zoning Code: [Municode, Boston Zoning Code](https://library.municode.com/ma/boston/codes/redevelopment_authority/376755?nodeId=ART80DEREAP).
+- Text amendments not included in `amendments/`: [Municode, Boston Zoning Code ordinances](https://library.municode.com/ma/boston/ordinances/redevelopment_authority).
+
 ## Event log
 
 `boston_permitting.xes` contains 942 projects (traces) and 15,067 events from 1988 to 2026, with one trace per project and one event per entry in the project's review timeline, such as a filing, a comment period, a public meeting, or a Board decision.
